@@ -1,0 +1,69 @@
+<div class="bg border rounded d-flex justify-content-end z-index">
+  <app-nav-bar [style]="'white-font'"></app-nav-bar>
+</div>
+
+<div class="flex-row d-flex">
+  <div style="width: 80%">
+    <h1 class="m-4 p-4">{{ exam_title }}</h1>
+    <div class="m-5">
+      @for( question of questions; track question){
+      <app-card>
+        @if( question.type == 'single-choice' ){
+        <app-single-choice-question
+          [statement]="question.statement"
+          [choices]="question.choices"
+        ></app-single-choice-question>
+        } @if( question.type == 'multiple-choice' ){
+        <app-multiple-choice-question
+        ></app-multiple-choice-question>
+        } @if( question.type == 'multipart' ){
+        <app-multipart-question
+          [statement]="question.statement"
+          [subquestions]="question.subquestions"
+        ></app-multipart-question>
+        }
+      </app-card>
+      }
+    </div>
+  </div>
+
+  <div style="width: 50%; height: 60%; margin-top: 9%">
+    <app-card>
+      <div class="text-center">Time left</div>
+      <div class="m-3 justify-content-center align-items-center d-flex">
+        <div class="timer-center" style="font-size: 15px">{{ timeString }}</div>
+        <div class="timer-border" style="{{ gradesStyle }}"></div>
+      </div>
+    </app-card>
+
+    <app-card>
+      <div class="container">
+        <div class="row">
+          @for( check of checked; track $index){
+          <div class="col-md-2">
+            @if( check){
+            <app-card
+              [style]="'width: 50px; height: 50px'"
+              [class]="
+                'border justify-content-center rounded m-2 text-center align-items-center pt-2'
+              "
+              >{{ $index + 1 }}</app-card
+            >
+            } @else {
+
+            <app-card
+              [style]="'width: 50px; background-color: gray; height: 50px'"
+              [class]="
+                'border justify-content-center rounded m-2 text-center align-items-center pt-2'
+              "
+              >{{ $index + 1 }}
+            </app-card>
+
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>

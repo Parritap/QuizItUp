@@ -1,0 +1,14 @@
+<p>{{ statement }}</p>
+
+@for( choice of choices; track choice) {
+<input
+  class="m-1"
+  type="radio"
+  id="{{ choice }}"
+  name="options"
+  value="{{ choice }}"
+/>
+<label class="m-1" for="{{ choice }}">{{ choice }}</label
+><br />
+
+}

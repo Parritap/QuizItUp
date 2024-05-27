@@ -1,0 +1,15 @@
+<p class="m-3">{{ statement }}</p>
+
+@for( question of subquestions; track question) {
+<app-card>
+  @if( question.type == 'single-choice' ){
+  <app-single-choice-question
+    [statement]="question.statement"
+    [choices]="question.choices"
+  ></app-single-choice-question>
+  } @if( question.type == 'multiple-choice' ){
+  <app-multiple-choice-question
+  ></app-multiple-choice-question>
+  }
+</app-card>
+}
