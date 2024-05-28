@@ -1,5 +1,6 @@
 package org.uniquindio.edu.co.escuela.services.interfaces;
 
+import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
 import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
 
@@ -30,6 +31,8 @@ public interface DocenteService {
     List <ExamenDTO> obtenerExamenesDocente (Long id_docente);
 
     String obtenerNombre(String id, String rol);
+
+    List<CursoDTO> obtenerCursos(String id, String rol);
 
 
 }

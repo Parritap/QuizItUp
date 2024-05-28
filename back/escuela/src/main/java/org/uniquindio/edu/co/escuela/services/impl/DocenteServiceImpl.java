@@ -1,5 +1,7 @@
 package org.uniquindio.edu.co.escuela.services.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
@@ -13,10 +15,12 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
 import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
 import org.uniquindio.edu.co.escuela.services.interfaces.DocenteService;
 
+import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -246,9 +250,30 @@ public class DocenteServiceImpl implements DocenteService {
 
     }
 
+    @Override
+    public List<CursoDTO> obtenerCursos(String id, String rol) {
+        // Crear una consulta para el procedimiento almacenado
+        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_grupos_por_usuario");
 
+        // Registrar los parámetros de entrada y salida del procedimiento almacenado
+        storedProcedure.registerStoredProcedureParameter("p_id_usuario", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("rol", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
 
+        // Establecer los valores de los parámetros de entrada
+        storedProcedure.setParameter("p_id_usuario", id);
+        storedProcedure.setParameter("rol", "alumno");
 
+        // Ejecutar el procedimiento almacenado
+        storedProcedure.execute();
+
+        String json1 = (String) storedProcedure.getOutputParameterValue("res");
+
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<CursoDTO>>() {}.getType();
+
+        return gson.fromJson(json1, personListType);
+    }
 
 
     //Esta vaina es solo para permitir consultar las preguntas por tema, es como un plugin XD

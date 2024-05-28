@@ -4,6 +4,7 @@ package org.uniquindio.edu.co.escuela.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
 import org.uniquindio.edu.co.escuela.DTO.ExamenDTO;
 import org.uniquindio.edu.co.escuela.DTO.MensajeDTO;
 import org.uniquindio.edu.co.escuela.DTO.PreguntaBancoDTO;
@@ -66,5 +67,8 @@ public class DocenteController {
     public ResponseEntity<MensajeDTO<String>> obtenerNombre(@PathVariable String id, @PathVariable String rol) {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.obtenerNombre(id, rol)));
     }
-
+    @GetMapping("/cursos/{id}/{rol}")
+    public ResponseEntity<MensajeDTO<List<CursoDTO>>> obtenerCursos(@PathVariable String id, @PathVariable String rol) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", docenteService.obtenerCursos(id, rol)));
+    }
 }

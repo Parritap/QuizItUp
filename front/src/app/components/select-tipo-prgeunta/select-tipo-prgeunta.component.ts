@@ -19,6 +19,10 @@ export class SelectTipoPrgeuntaComponent {
   tipoPregunta!: string;
   value!: number;
   valuePregunta!: number;
+  temas!: string[];
+  temaSelected!: string;
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -26,10 +30,17 @@ export class SelectTipoPrgeuntaComponent {
     this.valuePregunta = 1;
     this.tipoPregunta = 'Multiple choice';
     this.tiposPregunta = ['Multiple choice', 'Unique answer','True/False', 'Matching'];
+
+    this.loadTemas();
   }
 
   onChange(event: any) {
     this.valuePregunta = event.target.value;
   }
+
+  loadTemas() {
+    this.temas = ['Tema 1', 'Tema 2', 'Tema 3', 'Tema 4', 'Tema 5'];
+  }
+
 
 }

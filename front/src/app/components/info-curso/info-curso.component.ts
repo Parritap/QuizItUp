@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { ExamDue } from '../../dtos/Exam';
+import { CourseService } from '../../services/general-service/course.service';
 
 interface CourseData {
   [key: string]: any; 
@@ -12,12 +14,16 @@ interface CourseData {
   styleUrl: './info-curso.component.css'
 })
 export class InfoCursoComponent {
-  @Input('title') title!: string;
-  @Input('subtitle') subtitle!: string;
-  @Input('description') description!: string;
-  @Input('course_data') course_data!: CourseData;
+  
+  exam!: ExamDue;
 
-  getObjectKeys(obj: object){
-    return Object.keys(obj);
+  constructor(
+    private courseService: CourseService
+  ){
+
+  }
+
+  ngOnInit() {
+    this.exam = this.courseService.getExam();
   }
 }

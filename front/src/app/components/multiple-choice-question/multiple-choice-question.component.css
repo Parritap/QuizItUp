@@ -3,6 +3,7 @@
     height: 100%;
 }
 
+<<<<<<< HEAD
 input{
     min-height: 300px;
     min-width: 300px;
@@ -14,6 +15,14 @@ input{
     min-height: 800px;
     width: 100vh;
     gap: 120px;
+=======
+#container {
+  margin-top: 20px;
+  padding: 20px;
+  min-height: 800px;
+  width: 100vh;
+  gap: 120px;
+>>>>>>> 1c7dd89 (minor changes)
 }
 
 button{

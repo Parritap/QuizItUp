@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserActivoService {
+  
 
   private rol!: string;
   private id!: string;
@@ -24,5 +25,9 @@ export class UserActivoService {
 
   getId() {
     return this.id;
+  }
+
+  setNombre(nombre: string) {
+    localStorage.setItem('nombre', nombre);
   }
 }

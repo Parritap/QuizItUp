@@ -3,11 +3,10 @@ package org.uniquindio.edu.co.escuela.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.uniquindio.edu.co.escuela.DTO.CursoDTO;
-import org.uniquindio.edu.co.escuela.DTO.MensajeDTO;
-import org.uniquindio.edu.co.escuela.DTO.PreguntaDTO;
-import org.uniquindio.edu.co.escuela.DTO.PresentacionExamenDTO;
+import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/estudiante")
@@ -42,8 +41,19 @@ public class AlumnoController {
     }
 
     @GetMapping("/cursos/{id}/{rol}")
-    public ResponseEntity<MensajeDTO<CursoDTO>> obtenerCursos(@PathVariable String id, @PathVariable String rol) {
+    public ResponseEntity<MensajeDTO<List<CursoDTO>>> obtenerCursos(@PathVariable String id, @PathVariable String rol) {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.obtenerCursos(id, rol)));
+    }
+
+
+    @GetMapping("/examenes-pendientes/{id}/{id_grupo}")
+    public ResponseEntity<MensajeDTO<List<ExamenPendienteDTO>>> obtenerExamenesPendientes(@PathVariable String id, @PathVariable Integer id_grupo) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.obtenerExamenesPendiente(id, id_grupo)));
+    }
+
+    @GetMapping("/examenes-hechos/{id}/{id_grupo}")
+    public ResponseEntity<MensajeDTO<List<ExamenHechoDTO>>> obtenerExamenesHechos(@PathVariable String id, @PathVariable Integer id_grupo) {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "", alumnoService.obtenerExamenesHechos(id, id_grupo)));
     }
 
 }

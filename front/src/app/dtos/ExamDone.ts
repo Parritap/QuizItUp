@@ -1,5 +1,5 @@
 export interface ExamDone {
     id_examen: number;
-    nombre: string;
+    nombreExamen: string;
     calificacion: number;
 }

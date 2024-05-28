@@ -4,6 +4,9 @@ import { CardComponent } from '../../components/card/card.component';
 import { SingleChoiceQuestionComponent } from '../../components/single-choice-question/single-choice-question.component';
 import { MultipleChoiceQuestionComponent } from '../../components/multiple-choice-question/multiple-choice-question.component';
 import { MultipartQuestionComponent } from '../../components/multipart-question/multipart-question.component';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 type SimpleQuestion = {
   type: 'single-choice' | 'multiple-choice';
@@ -25,6 +28,7 @@ type MultipartQuestion = {
     SingleChoiceQuestionComponent,
     MultipleChoiceQuestionComponent,
     MultipartQuestionComponent,
+    FormsModule,
   ],
   templateUrl: './exam.component.html',
   styleUrl: './exam.component.css',
@@ -83,6 +87,26 @@ export class ExamComponent implements OnInit {
         },
       ],
     },
+    {
+      type: 'single-choice',
+      statement: 'what is an ip address',
+      choices: [
+        'a house address',
+        'a host address',
+        'a route',
+        'a ping message',
+      ],
+    },
+    {
+      type: 'single-choice',
+      statement: 'what is an ip address',
+      choices: [
+        'a house address',
+        'a host address',
+        'a route',
+        'a ping message',
+      ],
+    },
   ];
 
   ngOnInit(): void {
@@ -124,26 +148,26 @@ export class ExamComponent implements OnInit {
     else {
       path += ' L0,' + height * ((grades % 90) / 90);
       path += ' Z';
-      console.log(path, '==', grades);
       return path;
     }
     if (grades >= 180) path += ' L' + width + ',120';
     else {
       path += ' L' + width * ((grades % 90) / 90) + ',' + height;
       path += ' Z';
-      console.log(path, '==', grades);
       return path;
     }
     if (grades >= 270) path += ' L' + width + ',0';
     else {
       path += ' L' + width + ',' + height * (1 - (grades % 90) / 90);
       path += ' Z';
-      console.log(path, '==', grades);
       return path;
     }
     path += ' L' + width * (1 - (grades % 90) / 90) + ',0';
     path += ' Z';
-    console.log(path, '==', grades);
     return path;
+  }
+
+  onSubmit() {
+    console.log('fsdf');
   }
 }

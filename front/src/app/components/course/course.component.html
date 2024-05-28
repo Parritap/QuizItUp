@@ -1,13 +1,13 @@
-<div id="container mx-1  flex-shrink-0 flex-grow-0" >
+<div id="container mx-1  flex-shrink-0 flex-grow-0" (click)="loadCourse()" >
     <div class="row" id="info">
         <div class="col-10">
-           <h2>Course</h2> 
+           <h2>Group</h2> 
         </div>
         <div class="col-2">
             <i class="bi bi-journal-text"></i>
         </div>
         <div class="col-12">
-            <h3>{{course?.nombre}}</h3>
+            <h3>{{course!.nombre_curso}}</h3>
         </div>
     </div>
     <div class="row">

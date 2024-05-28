@@ -9,6 +9,8 @@
   ></app-single-choice-question>
   } @if( question.type == 'multiple-choice' ){
   <app-multiple-choice-question
+    [statement]="question.statement"
+    [choices]="question.choices"
   ></app-multiple-choice-question>
   }
 </app-card>

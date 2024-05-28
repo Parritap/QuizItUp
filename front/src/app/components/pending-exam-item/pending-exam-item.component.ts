@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Exam } from '../../dtos/Exam';
+import { ExamDue } from '../../dtos/Exam';
+import { Router } from '@angular/router';
+import { CourseService } from '../../services/general-service/course.service';
 
 @Component({
   selector: 'app-pending-exam-item',
@@ -10,5 +12,20 @@ import { Exam } from '../../dtos/Exam';
 })
 export class PendingExamItemComponent {
 
-  @Input() exam?: Exam;
+
+  @Input() exam!: ExamDue;
+
+  constructor(private router: Router,
+    private courseService: CourseService
+  ) {
+
+  }
+
+  presentarExamen() {
+    
+    this.router.navigate(['/info-curso']);
+    this.courseService.setExam(this.exam);
+
+
+  }
 }

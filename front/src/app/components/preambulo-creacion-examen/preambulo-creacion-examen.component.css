@@ -25,3 +25,21 @@ label, input {
   color : #4a3aff;
 }
 
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+h5{
+  margin-bottom: 30px;
+}
+
+#guardar{
+  background-color: #4a3aff;
+  color: white;
+  border: none;
+}

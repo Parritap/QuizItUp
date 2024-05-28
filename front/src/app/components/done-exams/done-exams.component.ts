@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserServiceService } from '../../services/ui-services/user-service.service';
 import { ExamDone } from '../../dtos/ExamDone';
 import { ExamPassedComponent } from "../exam-passed/exam-passed.component";
@@ -13,7 +13,7 @@ import { ExamFailedComponent } from "../exam-failed/exam-failed.component";
 })
 export class DoneExamsComponent implements OnInit {
 
-  exams?: ExamDone[];
+  @Input()exams!: ExamDone[];
 
   constructor(private userServicesService: UserServiceService) {
     this.exams = [];
@@ -21,15 +21,7 @@ export class DoneExamsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userServicesService.getExamsDone().then((data) => {
-
-      data.forEach(element => {
-
-        element.forEach(exam => {
-          this.exams?.push(exam);
-        });
-      });
-    });
+    
 
   }
 

@@ -1,9 +1,7 @@
 package org.uniquindio.edu.co.escuela.services.impl;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
@@ -14,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.uniquindio.edu.co.escuela.DTO.*;
 import org.uniquindio.edu.co.escuela.services.interfaces.AlumnoService;
 
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -135,7 +137,7 @@ public class AlumnoServiceImp implements AlumnoService {
 
 
     @Override
-    public CursoDTO obtenerCursos(String id, String rol) {
+    public List<CursoDTO> obtenerCursos(String id, String rol) {
 
         // Crear una consulta para el procedimiento almacenado
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_grupos_por_usuario");
@@ -153,27 +155,57 @@ public class AlumnoServiceImp implements AlumnoService {
         storedProcedure.execute();
 
         String json1 = (String) storedProcedure.getOutputParameterValue("res");
-        System.out.println(json1);
-        JsonParser parser = new JsonParser();
 
-        // Obtain Array
-        JsonArray gsonArr = parser.parse(json1).getAsJsonArray();
-        CursoDTO curso = null;
-        // for each element of array
-        for (JsonElement obj : gsonArr) {
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<CursoDTO>>() {}.getType();
 
-            // Object of array
-            JsonObject gsonObj = obj.getAsJsonObject();
-            String id_grupo = gsonObj.get("id_grupo").getAsString();
-            String nombre_grupo = gsonObj.get("nombre_grupo").getAsString();
-            String nombre_curso = gsonObj.get("nombre_curso").getAsString();
+        return gson.fromJson(json1, personListType);
+    }
 
-            curso = new CursoDTO(id_grupo, nombre_grupo, nombre_curso);
+    @Override
+    public List<ExamenPendienteDTO> obtenerExamenesPendiente(String id, Integer idGrupo) {
+        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("get_examenes_grupo_pendientes_por_alumno");
 
+        // Registrar los parámetros de entrada y salida del procedimiento almacenado
+        storedProcedure.registerStoredProcedureParameter("p_id_alumno", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("p_id_grupo", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
 
-        }
+        // Establecer los valores de los parámetros de entrada
+        storedProcedure.setParameter("p_id_alumno", Integer.parseInt(id));
+        storedProcedure.setParameter("p_id_grupo", idGrupo);
 
-        return curso;
+        // Ejecutar el procedimiento almacenado
+        storedProcedure.execute();
+
+        String json1 = (String) storedProcedure.getOutputParameterValue("res");
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<ExamenPendienteDTO>>() {}.getType();
+        return gson.fromJson(json1, personListType);
+    }
+
+    @Override
+    public List<ExamenHechoDTO> obtenerExamenesHechos(String id, Integer idGrupo) {
+        // Crear una consulta para el procedimiento almacenado
+
+        StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery("GET_PRESENTACION_EXAMEN_ALUMNO_GRUPO");
+
+        // Registrar los parámetros de entrada y salida del procedimiento almacenado
+        storedProcedure.registerStoredProcedureParameter("p_id_alumno", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("p_id_grupo", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("res", String.class, ParameterMode.OUT);
+
+        // Establecer los valores de los parámetros de entrada
+        storedProcedure.setParameter("p_id_alumno", Integer.parseInt(id));
+        storedProcedure.setParameter("p_id_grupo", idGrupo);
+
+        // Ejecutar el procedimiento almacenado
+        storedProcedure.execute();
+
+        String json1 = (String) storedProcedure.getOutputParameterValue("res");
+        Gson gson = new Gson();
+        Type personListType = new TypeToken<List<ExamenHechoDTO>>() {}.getType();
+        return gson.fromJson(json1, personListType);
     }
 
 

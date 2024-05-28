@@ -4,13 +4,13 @@
         <i class="bi bi-circle-fill"></i>
     </div>
     <div class="col-lg-4 col-md-6"> 
-        <h3 class="text-start">{{exam?.nombre}} </h3>
+        <h3 class="text-start">{{exam.nombre}} </h3>
     </div>
     <div class="col-lg-3 col-md-2">
-        <h2> due to {{exam?.fecha}} </h2>
+        <h2> due to {{exam.fecha_hora_fin}} </h2>
     </div>
     <div class="col-lg-3 col-md-2">
-        <button class="btn btn-primary">Present</button>
+        <button class="btn btn-primary"(click)="presentarExamen()">Present</button>
     </div>
 
 </div>

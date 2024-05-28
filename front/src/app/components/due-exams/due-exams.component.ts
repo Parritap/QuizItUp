@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Exam } from '../../dtos/Exam';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserServiceService } from '../../services/ui-services/user-service.service';
 import { PendingExamItemComponent } from "../pending-exam-item/pending-exam-item.component";
+import { ExamDue } from '../../dtos/Exam';
 
 @Component({
     selector: 'app-due-exams',
@@ -11,23 +11,15 @@ import { PendingExamItemComponent } from "../pending-exam-item/pending-exam-item
     imports: [PendingExamItemComponent]
 })
 export class DueExamsComponent implements OnInit {
-  exams?:Exam[];
+  @Input()exams!:ExamDue[];
 
   constructor( private userServicesService: UserServiceService) {
     this.exams = [];
   }
 
   ngOnInit(): void {
-    this.userServicesService.getExams().then((data) => {
-      
-      data.forEach(element => {
+    
 
-        element.forEach(exam => {
-            this.exams?.push(exam);
-        });
-
-      }
-      );
-    });
+    
   }
 }

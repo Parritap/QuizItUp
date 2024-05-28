@@ -4,6 +4,8 @@ import { LeftBarComponent } from '../../components/left-bar/left-bar.component';
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import { UserServiceService } from '../../services/ui-services/user-service.service';
 import { CourseInfo } from '../../dtos/CourseInfo';
+import { ExamDue } from '../../dtos/Exam';
+import { CourseService } from '../../services/general-service/course.service';
 
 @Component({
   selector: 'app-informacion-curso',
@@ -14,19 +16,17 @@ import { CourseInfo } from '../../dtos/CourseInfo';
 })
 export class InformacionCursoComponent {
 
-  constructor(private usrService: UserServiceService) {
+  constructor(private usrService: UserServiceService,
+    private courseInfo: CourseService
+  ) {
 
   }
-  curso!: CourseInfo;
+  curso!: ExamDue;
 
   ngOnInit() {
-    this.usrService.getCourseInfo().then((data) => {
-      data.subscribe(response => {
-        
-        this.curso = response;
-        console.log(response);
-      });
-    });
+
+    this.curso = this.courseInfo.getExam();
+    
   }
 
 }

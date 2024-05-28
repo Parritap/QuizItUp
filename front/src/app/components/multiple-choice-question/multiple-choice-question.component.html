@@ -1,25 +1,9 @@
-<div id="container">
+<p>{{ statement }}</p>
 
-    <h5 class="text-center">Pregunta</h5>
-    <div class="row">
-        <div class="col-9">
-            <input type="text" class="form-control" [(ngModel)]="pregunta">
+@for( choice of choices; track choice) {
+<input class="m-1" type="checkbox" id="{{ choice }}" name="options" value="{{ choice }}" />
+<label class="m-1" for="{{ choice }}">{{ choice }}</label><br />
 
-            <div class="row">
-                <div class="col-6">
-                    <button class="btn btn-primary">Agregar respuesta</button>
-                </div>
-                <div class="col-6">
-                    <button class="btn btn-primary">Eliminar respuesta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-                <div class="col-12">
-                    <app-pregunta-multiple>
-                      <input type="radio">
-                    </app-pregunta-multiple>
-                </div>
-        </div>
-    </div>
-</div>
+}
+
+<button class="btn btn-primary"> Crear pregunta en el banco</button>
